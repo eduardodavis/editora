@@ -18,6 +18,8 @@ class CreateLivrosTable extends Migration
 	        $table->string('title');
             $table->string('subtitle');
 	        $table->float('price');
+	        $table->unsignedInteger('user_id');
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade')->onUpdate('cascade');
             $table->timestamps();
         });
     }

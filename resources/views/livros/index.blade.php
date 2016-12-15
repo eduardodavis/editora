@@ -2,7 +2,7 @@
 
 @section('content')
     <div class="container">
-        <h1>Lista de Categorias</h1>
+        <h1>Lista de Livros</h1>
         <a href="{{ route('livros.create') }}" class="btn btn-primary">Novo Livro</a>
         <div class="row">
             <table class="table table-striped">

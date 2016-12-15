@@ -24,7 +24,7 @@ $factory->define(App\User::class, function (Faker\Generator $faker) {
 
 $factory->define(App\Category::class, function (Faker\Generator $faker) {
     return [
-        'name' => ucfirst($faker->unique()->word),
+        'name' => ucfirst($faker->unique()->word)
     ];
 });
 
@@ -32,6 +32,7 @@ $factory->define(App\Livros::class, function (Faker\Generator $faker) {
     return [
         'title' => $faker->realText($maxNbChars = 20, $indexSize = 2),
         'subtitle' => $faker->realText($maxNbChars = 30, $indexSize = 2),
-        'price' => $faker->randomFloat(2,10,800)
+        'price' => $faker->randomFloat(2,10,800),
+        'user_id' => $faker->numberBetween($min = 1, $max = 1)
     ];
 });

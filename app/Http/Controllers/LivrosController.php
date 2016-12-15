@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\LivroRequest;
 use App\Livros;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Request;
 
@@ -35,9 +37,11 @@ class LivrosController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(LivroRequest $request)
     {
-        Livros::create($request->all());
+        $input = $request->all();
+        $input['user_id'] = Auth::id();
+        Livros::create($input);
         return redirect()->route('livros.index');
     }
 
@@ -70,7 +74,7 @@ class LivrosController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Livros $livro)
+    public function update(LivroRequest $request, Livros $livro)
     {
         $livro->fill($request->all());
         $livro->save();
