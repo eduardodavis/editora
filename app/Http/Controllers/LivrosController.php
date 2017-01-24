@@ -42,7 +42,9 @@ class LivrosController extends Controller
         $input = $request->all();
         $input['user_id'] = Auth::id();
         Livros::create($input);
-        return redirect()->route('livros.index');
+        $url = $request->get('redirect_to', route('livros.index'));
+        $request->session()->flash('message', 'Livro cadastrado com sucesso!');
+        return redirect()->to($url);
     }
 
     /**
@@ -78,9 +80,9 @@ class LivrosController extends Controller
     {
         $livro->fill($request->all());
         $livro->save();
-
-
-        return redirect()->route('livros.index');
+        $url = $request->get('redirect_to', route('livros.index'));
+        $request->session()->flash('message', 'Livro atualizado com sucesso!');
+        return redirect()->to($url);
     }
 
     /**
@@ -92,6 +94,7 @@ class LivrosController extends Controller
     public function destroy(Livros $livro)
     {
         $livro->delete();
-        return redirect()->route('livros.index');
+        \Session::flash('message', 'Livro apagado com sucesso!');
+        return redirect()->to(\URL::previous());
     }
 }

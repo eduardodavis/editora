@@ -16,8 +16,12 @@ class LivroRequest extends FormRequest
     {
         $id = Auth::id();
         $livro = $this->route('livro');
-        $author = $livro->user_id;
-        return $author == $id ? true : false;
+        if ($livro!=NULL) {
+            $author = $livro->user_id;
+            return $author == $id ? true : false;
+        }
+        else
+            return true;
     }
 
     /**
@@ -33,7 +37,7 @@ class LivroRequest extends FormRequest
         return [
             'title' => "required|max:255|unique:livros,title,$id",
             'subtitle' => 'max:255',
-            'price' => 'required'
+            'price' => 'required|numeric'
         ];
     }
 }
